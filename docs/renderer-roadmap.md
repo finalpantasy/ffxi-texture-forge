@@ -4,7 +4,8 @@ The verified adapter enlarges the game's native asset pool. A separate local
 Ashita/DX11 experiment has demonstrated keeping the native assets in that pool
 while substituting high-resolution resources through an external replacement
 path. That prototype is **not included in this public release**; retail
-Windower and DX12 support have not been qualified.
+Windower and general DX12 support have not been qualified. A narrow offline
+D3D12-configured route has been tested; see below.
 
 ## Current evidence (October 19, 2026)
 
@@ -25,11 +26,23 @@ one experimental replacement path, not a universal limit or a fix for every
 crowded-area blackout. See the [experiment record](renderer-experiment-results.md)
 for measurements and boundaries.
 
+## D3D12-configured route follow-up
+
+One offline route used 100 external 8K textures with a 512 MiB resident budget
+and a 192 MiB staging budget. It completed 25 area transitions, with 55 entries
+observed drawing and no recorded stream failures. Route-specific native
+device/GPU evidence remains pending. The four-minute soak ended when the
+separate offline map server's inactivity watchdog stopped the server and its
+supervisor terminated the client; this did not establish a renderer crash or a
+long-session pass. Frame-time tails and cache churn also remain concerns. Full
+metrics and caveats are in the [experiment record](renderer-experiment-results.md).
+
 ## Remaining work
 
-1. Repeat the bounded upload, draw and readback qualification for DX12. The
-   local test reached 16K on the DX11 path; that is not proof of DX12 or broad
-   FFXI compatibility.
+1. Capture route-matched native device/GPU evidence and explicit upload/readback
+   results under D3D12. The 25-transition offline route is a narrow pass, not
+   complete D3D12 qualification; its route trace is incomplete and its
+   four-minute soak was interrupted by the private map-server watchdog.
 2. Trace texture creation, uploads, identity and lifetime in an owned offline
    client. The prototype matches a narrow diagnostic texture; a stable general
    replacement identity, duplicate-data handling and late uploads remain open.

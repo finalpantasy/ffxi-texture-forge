@@ -46,9 +46,36 @@ The 16K result is not a discovered maximum: the tested workload passed, and no
 failure threshold was reached. It does not show that all 100 textures were
 visible at once, that all 25.50 GiB were resident in VRAM, or that this path
 fixes the original crowded-area blackout in every environment. It was an
-offline Ashita/DX11 test. Retail Windower, DX12 with this workload, crowded
-combat, broad asset matching, repeated zoning and long-session behavior remain
-unqualified.
+offline Ashita/DX11 test. Retail Windower, crowded combat, broad asset matching,
+further repeated zoning and long-session behavior remain unqualified.
+
+## D3D12-configured route follow-up
+
+A separate owned offline x86 Ashita run used dgVoodoo 2.87.5 configured for
+D3D12 FL12.0, Large Address Aware, 100 distinct external 8K DDS replacements
+(6.375 GiB of aggregate full-mip source payload), a 512 MiB resident budget and
+a 192 MiB staging budget. It completed 25 real area transitions in 378.82
+seconds. Fifty-five of the 100 manifest entries were observed uploading and
+drawing. Peak stream-owned resident payload was 469.33 MiB and peak staging was
+170.67 MiB; the route recorded 224,480 replacement draws and zero stream
+failures, hook conflicts or budget rejects. The final capture showed a rendered
+scene without a black-world capture. It did not show all 100 replacements on
+screen at once.
+
+The run requested D3D12 FL12.0 and loaded `d3d12.dll`, but its receipt leaves a
+native device/GPU trace pending. Across 7,735 sampled frames, p95 was 56.05 ms,
+p99 was 139.47 ms and the maximum was 600.81 ms; this is not a matched
+performance comparison and does not establish performance readiness.
+
+A controlled six-entity local scene also completed its scripted actions and
+cleanup. The later four-minute soak did not complete: the owned offline map
+server's inactivity watchdog killed its map process after a main tick exceeded
+2,000 ms, and the supervisor then terminated the client. The final stream
+samples had no texture failures or budget overflow, and no GPU-reset or
+application-crash event was found. This is a test-environment interruption,
+not evidence of an FFXI renderer crash; long-session client stability remains
+unknown. A separate combined run also reached the stream addon's 510-second
+safety lifetime before completing its soak.
 
 ## Public release boundary
 
@@ -56,4 +83,5 @@ This repository publishes the measurements and limitations only. The local
 prototype, stress harness, diagnostic texture pack, wrapper binaries and raw
 runtime captures are not included. The existing retail asset-pool adapter is a
 separate approach: it increases the native arena and does not implement the
-renderer-side substitution described here.
+renderer-side substitution described here. The offline D3D12 route is a narrow
+test result, not retail Windower or general-purpose DX12 support.

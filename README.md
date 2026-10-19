@@ -35,11 +35,13 @@ optional addon/plugin comparison crashed; its cause remains unresolved.
 This is source and reproducible tooling, not a general-purpose drag-and-drop
 patch. It supports one engine build and refuses a mismatch. Renderer-side HD
 replacement has passed a narrow **local Ashita/DX11 prototype** test with 16K
-diagnostic textures, external storage, and resource clearing. That prototype,
-its harness and test assets are not included here, so this public release does
-**not** provide renderer-side HD replacement or claim retail Windower/DX12
-support. See the [experiment results](docs/renderer-experiment-results.md) and
-[remaining renderer work](docs/renderer-roadmap.md).
+diagnostic textures, external storage, and resource clearing. A separate
+D3D12-configured offline route completed 25 area transitions with 8K stress
+textures, but its route-specific device trace and four-minute soak remain
+incomplete. That prototype, its harness and test assets are not included here,
+so this public release does **not** provide renderer-side HD replacement or
+claim retail Windower/DX12 support. See the [experiment results](docs/renderer-experiment-results.md)
+and [remaining renderer work](docs/renderer-roadmap.md).
 
 No game executables, DLLs, DATs, account data, crash dumps, wrapper binaries or
 third-party mod assets are distributed. Supply your own installation, existing
