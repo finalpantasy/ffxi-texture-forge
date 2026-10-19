@@ -1,0 +1,15 @@
+local/
+.cache/
+__pycache__/
+*.pyc
+*.DAT
+*.dat
+*.dmp
+*.dll
+*.exe
+*.pdb
+*.obj
+*.lib
+*.exp
+*.dds
+.env*

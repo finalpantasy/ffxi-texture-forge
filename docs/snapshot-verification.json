@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-18",
+  "scope": "Fresh verification of the public source snapshot; no game launch during packaging",
+  "native_guard_and_iat_tests": "passed",
+  "actual_installed_luacore_gate_cases_passed": 9,
+  "launcher_ownership_tests_passed": 7,
+  "fixture_export_check": {
+    "compressed_payload_bytes": 536870912,
+    "native_dat_bytes": 543505552,
+    "extra_unreferenced_texture_sections": 86,
+    "nontexture_preservation": "passed",
+    "sha256": "1ce5bfec10d79f13ae0c08ae3ab049d82e1c7a61dc315c2d907c91adc0a14ada"
+  },
+  "public_snapshot_new_live_game_test": false,
+  "retail_result_provenance": "Earlier local trials using the same native adapter source; summarized in README",
+  "excluded": ["game data", "third-party binaries", "private logs", "crash dumps", "local configuration", "personal identity"]
+}

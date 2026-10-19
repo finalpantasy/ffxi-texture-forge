@@ -1,0 +1,11 @@
+{
+  "native_source_sha256": {
+    "retail_arena.cpp": "36256fffcc9bd958beccf096d44f81197f4b7ba8919cec2ee0faf2095f06c6ae",
+    "retail_inject.cpp": "591d9aa2be6132e1bfd07aec5956a60935374c78b38d1a217c95298e853bb181",
+    "retail_gate.cpp": "d2be58aab7938b9061b17e8ef785dc558399bb21565666f183759e3440126c37",
+    "retail_pool.h": "0f42a37873248e27b5918992381a452339e3a6545d33a24121cf8a8ed7677016",
+    "retail_mute.h": "534a5d7e72fc3fd0a316ecfa1978410354904883373ec16b1fcefa60681db7ca",
+    "retail_arena_test.cpp": "cc44a7c91d7dbf13159f65f0fc7142de70a595d1baeef683468b00f3aca48f8a"
+  },
+  "snapshot_scope": "Source only. No game files, wrappers, private logs, dumps or texture DATs included."
+}

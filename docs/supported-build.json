@@ -1,0 +1,9 @@
+{
+  "platform": "Windows x86 retail client on 64-bit Windows",
+  "FFXi.dll_sha256": "760f8245173c85976ddf2b0828f90a11db6a2987e96982efc58df812dff5b2a4",
+  "FFXiMain.dll_sha256": "042884888eea4fadac183e520f2ae9f8c4fa267860e685048e1880efd358e872",
+  "pool_target_bytes": 1073741696,
+  "retail_backend_observed": "dgVoodoo 2.87.5 x86, D3D8 to D3D11",
+  "retail_DX12_qualified": false,
+  "snapshot_date": "2026-10-18"
+}

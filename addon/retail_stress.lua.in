@@ -1,0 +1,62 @@
+-- Windower 4 / Lua 5.1. Giant overlay requires the measured pinned asset pool.
+_addon.name='retail_stress'
+_addon.author='Local FFXI graphics project'
+_addon.version='0.1.0'
+_addon.commands={'windursttest'}
+local lib=windower.addon_path:gsub('\\','/')..'libs/?.dll'
+package.cpath=package.cpath..';'..lib
+local gate=require('_RetailGate')
+local active=false
+local expected_d3d8='@D3D8_PATH@'
+local function qualified(s)
+    return s.injected and s.patched and s.laa
+        and s.target_arena_bytes==@ARENA_BYTES@ -- Generated for the configured pool.
+        and s.arena_bytes==s.target_arena_bytes
+        and s.d3d8_path:gsub('\\','/'):lower()==expected_d3d8 and s.d3d11_loaded
+end
+local function evidence(label)
+    local s=gate.snapshot()
+    local info=windower.ffxi.get_info() or {}
+    s.zone_id=info.zone; s.label=label; s.overlay_requested=active
+    s.logged_in=info.logged_in; s.sample_unix=os.time()
+    local f=io.open(windower.windower_path..'logs/retail-windurst-'..s.pid..'.jsonl','a')
+    if f then
+        local values={}
+        for key,value in pairs(s) do
+            if type(value)=='boolean' or type(value)=='number' then
+                values[#values+1]='"'..key..'":'..tostring(value)
+            elseif type(value)=='string' then
+                values[#values+1]='"'..key..'":"'..value:gsub('\\','\\\\'):gsub('"','\\"'):gsub('[%c]',' ')..'"'
+            end
+        end
+        f:write('{'..table.concat(values,',')..'}\n'); f:close()
+    end
+    return s
+end
+local initial=evidence('addon-load')
+if initial.injected then
+    if qualified(initial) then
+        active=true
+        windower.send_command('lua load XIPivot')
+        windower.add_to_chat(207,string.format('[Windurst test] %.0f MiB asset pool measured; LAA + dgVoodoo/DX11 detected. Loading stress overlay.',initial.arena_bytes/1048576))
+        evidence('overlay-requested')
+    else
+        windower.add_to_chat(167,'[Windurst test] Pool or renderer verification failed. Giant overlay DISABLED. See retail test logs.')
+    end
+end
+local function after_load()
+    if not active or not coroutine.schedule then return end
+    local zone=(windower.ffxi.get_info() or {}).zone
+    for _,delay in ipairs({15,60}) do
+        coroutine.schedule(function()
+            if (windower.ffxi.get_info() or {}).zone==zone then evidence('zone-loaded-'..delay..'s') end
+        end,delay)
+    end
+end
+windower.register_event('login',function() evidence('login'); after_load() end)
+windower.register_event('zone change',function() evidence('zone-change'); after_load() end)
+windower.register_event('addon command',function()
+    local s=evidence('manual-status')
+    windower.add_to_chat(207,string.format('[Windurst test] pool %.2f MiB; LAA %s; overlay requested %s; DX11 %s',
+        s.arena_bytes/1048576,tostring(s.laa),tostring(active),tostring(s.d3d11_loaded)))
+end)
