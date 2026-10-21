@@ -1,5 +1,7 @@
 # FFXI Texture Forge
 
+[![Support me on Ko-fi](https://img.shields.io/badge/Ko--fi-buy%20me%20a%20coffee-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/finalpantasy)
+
 An experimental tool for testing one cause of black scenery and crashes when
 Final Fantasy XI loads lots of large replacement textures: the game's own
 limited space for keeping assets ready.
@@ -98,3 +100,7 @@ Get the [v0.1.0-alpha.1 release](https://github.com/finalpantasy/ffxi-texture-fo
 
 MIT licensed. Final Fantasy XI and its game content belong to Square Enix. This
 project is not affiliated with Square Enix or Windower.
+
+## Support
+
+Free hobby project. If it helps you, you can [buy me a coffee on Ko-fi](https://ko-fi.com/finalpantasy). Thank you!
